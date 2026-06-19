@@ -8,14 +8,14 @@ const AlbumModal = ({ album, setAlbums, setSelectedAlbum }) => {
     const [loading, setLoading] = useState(false);
 
     const isUpdate = album ? true : false;
-    console.log("Name", name, "Description", description);
+    // console.log("Name", name, "Description", description);
 
     useEffect(() => {
         setName(album?.name || "");
         setDescription(album?.description || "");
     }, [album]);
 
-    console.log("album", album);
+    // console.log("album", album);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -36,9 +36,9 @@ const AlbumModal = ({ album, setAlbums, setSelectedAlbum }) => {
                         }
                     }
                 )
-                console.log("response of update", response);
+                // console.log("response of update", response);
                 const updatedAlbum = response?.data?.album;
-                console.log("updatedAlbum", updatedAlbum);
+                // console.log("updatedAlbum", updatedAlbum);
                 setAlbums((prev) => prev.map((album) => album._id === updatedAlbum?._id ? updatedAlbum : album));
                 toast.success("Album updated successfully");
             }
@@ -53,7 +53,7 @@ const AlbumModal = ({ album, setAlbums, setSelectedAlbum }) => {
                         }
                     }
                 )
-                console.log("response of submit", response);
+                // console.log("response of submit", response);
                 setAlbums(prev => [...prev, response?.data?.album]);
                 toast.success("Album created successfully");
                 setName("")

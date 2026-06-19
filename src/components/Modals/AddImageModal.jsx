@@ -47,8 +47,8 @@ const AddImageModal = ({ album, setImages }) => {
         setFormData((prev) => ({ ...prev, [name]: checked }));
     }
 
-    console.log("formData", formData);
-    console.log("tags", formData?.tags?.map(tag => tag.value))
+    // console.log("formData", formData);
+    // console.log("tags", formData?.tags?.map(tag => tag.value))
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -87,7 +87,7 @@ const AddImageModal = ({ album, setImages }) => {
         }
     }
 
-    console.log("formData", formData);
+    // console.log("formData", formData);
 
     return (
         <div className="modal fade" id="imageModal" tabIndex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">

@@ -6,7 +6,7 @@ import { authServerAxios } from '../../lib/axios.lib';
 import toast from 'react-hot-toast';
 
 const AlbumShareModal = ({ album }) => {
-
+    // console.log("album", album);
     const [options, setOptions] = useState([]);
     // const [users, setUsers] = useState([]);
     const [selectedUsers, setSelectedUsers] = useState([]);
@@ -20,7 +20,7 @@ const AlbumShareModal = ({ album }) => {
 
     const animatedComponents = makeAnimated();
 
-    console.log("options", options);
+    // console.log("options", options);
 
     const fetchUsers = async () => {
         try {
@@ -30,7 +30,7 @@ const AlbumShareModal = ({ album }) => {
                     "Authorization": `Bearer ${localStorage.getItem("token")}`
                 }
             })
-            console.log("response of fetch users", response);
+            // console.log("response of fetch users", response);
             const options = response?.data?.users?.map((user) => ({ value: user.email, label: user.email }));
             setOptions(options);
             // setUsers(response?.data?.users);
@@ -40,11 +40,12 @@ const AlbumShareModal = ({ album }) => {
     }
 
     useEffect(() => {
+        if (!album) return;
         fetchUsers();
-    }, []);
+    }, [album]);
 
-    console.log("options", options);
-    console.log("selectedUsers", selectedUsers);
+    // console.log("options", options);
+    // console.log("selectedUsers", selectedUsers);
 
 
 
@@ -65,7 +66,7 @@ const AlbumShareModal = ({ album }) => {
                     }
                 }
             )
-            console.log("response of share album", response);
+            // console.log("response of share album", response);
             toast.success("Album shared successfully");
             setSelectedUsers([]);
         } catch (error) {

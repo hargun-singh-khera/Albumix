@@ -5,7 +5,7 @@ import { authServerAxios, googleApiAxios } from "../lib/axios.lib";
 const GoogleProfile = () => {
   const [userData, setUserData] = useState(null);
   const googleAccessToken = Cookies.get('access_token') || '';
-  console.log("googleAccessToken", googleAccessToken);
+  // console.log("googleAccessToken", googleAccessToken);
 
   useEffect(() => {
     (async () => {
@@ -17,7 +17,7 @@ const GoogleProfile = () => {
               Authorization: `Bearer ${googleAccessToken}`,
             },
           });
-          console.log("userResponse", userResponse);
+          // console.log("userResponse", userResponse);
           setUserData(() => userResponse.data);
         } catch (error) {
           window.location.href = '/';
@@ -27,7 +27,7 @@ const GoogleProfile = () => {
       } else if (location.pathname.includes('v2')) {
         try {
           const response = await authServerAxios.get('/user/profile/google');
-          console.log("response", response);
+          // console.log("response", response);
           setUserData(() => response.data.user);
         } catch (error) {
           if (error.status === 403 || error.status === 500) {

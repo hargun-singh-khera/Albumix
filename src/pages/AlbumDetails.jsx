@@ -24,7 +24,7 @@ const AlbumDetails = () => {
                     "Authorization": `Bearer ${localStorage.getItem("token")}`
                 }
             });
-            console.log("response", response);
+            // console.log("response", response);
             setAlbumDetail(response?.data?.album);
             // setIsFavorite(response?.data?.images?.isFavorite);
             setImages(response?.data?.images);
@@ -69,7 +69,7 @@ const AlbumDetails = () => {
                     "Authorization": `Bearer ${localStorage.getItem("token")}`
                 }
             })
-            console.log("response of delete", response);
+            // console.log("response of delete", response);
             setImages((prev) => prev.filter((image) => image._id !== imageId));
         } catch (error) {
             console.error("Error while deleting image", error);
@@ -90,7 +90,7 @@ const AlbumDetails = () => {
                     "Authorization": `Bearer ${localStorage.getItem("token")}`
                 }
             })
-            console.log("response", response);
+            // console.log("response", response);
             setImages(response?.data?.images);
             setActiveFilter("favorite");
         } catch (error) {

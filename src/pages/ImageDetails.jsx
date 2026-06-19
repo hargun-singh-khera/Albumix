@@ -12,14 +12,14 @@ const ImageDetails = () => {
     const userData = location.state?.userData;
     const imageId = image._id;
 
-    console.log("image", image);
+    // console.log("image", image);
 
     const [commentText, setCommentText] = useState("");
     const [comments, setComments] = useState([]);
 
     const [isFavorite, setIsFavorite] = useState(false);
 
-    console.log("isFavorite", isFavorite);
+    // console.log("isFavorite", isFavorite);
 
     const handleToggleFavorite = async (imageId) => {
         try {
@@ -32,7 +32,7 @@ const ImageDetails = () => {
                     }
                 }
             )
-            console.log("response", response);
+            // console.log("response", response);
             setIsFavorite(!isFavorite);
         } catch (error) {
             console.error("Error while toggling favorite", error);
@@ -49,7 +49,7 @@ const ImageDetails = () => {
                     "Authorization": `Bearer ${localStorage.getItem("token")}`
                 }
             })
-            console.log("response of delete", response);
+            // console.log("response of delete", response);
             toast.success("Image deleted successfully");
             navigate(`/album/${albumId}`);
         } catch (error) {
@@ -78,7 +78,7 @@ const ImageDetails = () => {
                     }
                 }
             );
-            console.log("response of comment", response.data);
+            // console.log("response of comment", response.data);
             const newComment = response?.data?.comment;
             setComments((prev) => {
                 const updated = [...prev, newComment];

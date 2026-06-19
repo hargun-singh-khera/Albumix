@@ -12,12 +12,12 @@ const Dashboard = () => {
     useEffect(() => {
         (async () => {
             try {
-                console.log("running useEffect")
+                // console.log("running useEffect")
                 const response = await authServerAxios.get('/user/profile/google');
-                console.log("response of user data", response);
+                // console.log("response of user data", response);
                 setUserData(() => response.data.user);
                 const token = response.data.token;
-                console.log("token", token);
+                // console.log("token", token);
                 localStorage.setItem("token", token);
                 fetchAlbums(token);
             } catch (error) {
@@ -47,7 +47,7 @@ const Dashboard = () => {
                     "Authorization": `Bearer ${token}`
                 }
             });
-            console.log("response of fetch albums", response);
+            // console.log("response of fetch albums", response);
 
             setAlbums(response.data.albums);
         } catch (error) {
@@ -58,7 +58,7 @@ const Dashboard = () => {
         }
     }
 
-    console.log("albums", albums)
+    // console.log("albums", albums)
 
     const [selectedAlbum, setSelectedAlbum] = useState(null);
 
@@ -76,7 +76,7 @@ const Dashboard = () => {
                     "Authorization": `Bearer ${localStorage.getItem("token")}`
                 }
             })
-            console.log("response of delete", response);
+            // console.log("response of delete", response);
             setAlbums((prev) => prev.filter((album) => album._id !== id));
             toast.success("Album deleted successfully");
         } catch (error) {
