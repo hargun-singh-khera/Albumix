@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 import AlbumModal from '../components/Modals/AlbumModal';
 import AlbumShareModal from '../components/Modals/AlbumShareModal';
+import PlaceholderAlbumCard from '../components/PlaceholderAlbumCard';
 
 const Dashboard = () => {
     const [userData, setUserData] = useState(null);
@@ -26,17 +27,12 @@ const Dashboard = () => {
         })();
     }, []);
 
-    // fetch(
-    //     "https://kavios-pix-backend-pied.vercel.app/user/profile/google",
-    //     {
-    //         credentials: "include"
-    //     }
-    // ).then(r => r.json()).then(console.log)
-
     // console.log("userData", userData);
     const [albums, setAlbums] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+
+    const [searchQuery, setSearchQuery] = useState("");
 
     const fetchAlbums = async (token) => {
         try {
@@ -85,6 +81,9 @@ const Dashboard = () => {
         }
     }
 
+    const filteredAlbums = searchQuery ? albums.filter((album) => album.name.toLowerCase().includes(searchQuery.toLowerCase())) : albums;
+    const placeholderArray = [1, 2, 3, 4];
+
     return (
         <div>
             <Header userData={userData} />
@@ -96,16 +95,22 @@ const Dashboard = () => {
                         <h4>My Albums</h4>
                         <button type="button" onClick={() => setSelectedAlbum(null)} className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#albumModal">+ Create Album</button>
                     </div>
+                    <div className="d-flex mt-4">
+                        <input onChange={(e) => setSearchQuery(e.target.value)} className="form-control" type="search" placeholder="Search albums by name ..." aria-label="Search" />
+                    </div>
                 </div>
-                <div className="">
+                <div className="mt-1">
                     <div className="row">
-                        {loading && <p>Loading...</p>}
+                        {loading && placeholderArray.map((item) => <div className="col-md-3 mb-4">
+                            <PlaceholderAlbumCard />
+                        </div>)
+                        }
                         {!loading && error && <p>{error}</p>}
-                        {!loading && !error && albums?.length === 0 && <p>No albums found</p>}
-                        {!error && albums?.length > 0 && albums.map(album => (
+                        {!loading && !error && filteredAlbums?.length === 0 && <p>No albums found</p>}
+                        {!error && filteredAlbums?.length > 0 && filteredAlbums.map(album => (
                             <div key={album._id} className="col-md-3 mb-4">
                                 <Link to={`/album/${album._id}`} state={{ userData }} className="card text-decoration-none">
-                                    <img src={album?.thumbnail || "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png?_=20210219185637"} className="card-img-top object-fit-cover w-100" alt="..." style={{ height: "10rem" }} />
+                                    <img src={album?.thumbnail || "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png?_=20210219185637"} className="card-img-top object-fit-cover w-100" alt="..." style={{ height: "12rem" }} />
                                     <div className="card-body">
                                         <p className="card-text">{album.name} ({album.imagesCount || 0} items)</p>
                                         <p>{album.description || "No description available"}</p>

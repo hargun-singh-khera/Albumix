@@ -57,7 +57,7 @@ const AlbumDetails = () => {
             setImages((prev) => prev.map((image) => image._id === imageId ? { ...image, isFavorite: !image.isFavorite } : image))
         } catch (error) {
             console.error("Error while toggling favorite", error);
-            toast.error("Failed to toggle favorite");
+            toast.error(error?.response?.data?.message || "Failed to toggle favorite");
         }
     }
 
@@ -73,7 +73,7 @@ const AlbumDetails = () => {
             setImages((prev) => prev.filter((image) => image._id !== imageId));
         } catch (error) {
             console.error("Error while deleting image", error);
-            toast.error("Failed to delete image");
+            toast.error(error?.response?.data?.message || "Failed to delete image");
         }
     }
 
